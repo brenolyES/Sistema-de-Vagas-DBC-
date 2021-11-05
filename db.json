@@ -1,0 +1,22 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "tipo": "trabalhador",
+            "nome": "teste trabalhador",
+            "dataNascimento": "10/10/2001",
+            "email": "teste@teste.com",
+            "senha": "123456Aa*",
+            "primeiroEmprego": true,
+            "candidaturas": []
+        }
+    ],
+    "vagas": [
+        {
+            "id":1, 
+            "titulo":"teste vaga",
+            "remuneracao": 3000,
+            "candidatos": []
+        }
+    ]
+}
