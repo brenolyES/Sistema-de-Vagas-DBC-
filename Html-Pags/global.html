@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="../Css/reset.css">
     <title>Sistema de Vagas</title>
-    <link rel="stylesheet" href="../reset.css">
+    <!-- <link rel="stylesheet" href="../reset.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
@@ -60,7 +61,7 @@
 
         </div>
         <div id='tela-cadastro-vaga'
-            class="d-flex flex-column justify-content-between border border-2 border border-secondary"
+            class="d-none flex-column justify-content-between border border-2 border border-secondary"
             style="width: 700px; min-height: 300px;">
             <div class="d-flex justify-content-center bg-dark">
                 <span class='text-white'>CADASTRAR VAGA</span>
@@ -83,13 +84,155 @@
                 </div>
             </div>
         </div>
-        <div id='tela-detalhe-vaga-recrutador'>
-            <!-- Breno -->
+          <!-- ---------------------Breno--------------------- -->
+        <div id='tela-detalhe-vaga-recrutador' class=" w-75" style="margin-top: 100px; margin-bottom: 100px;">
+            <div class="card">
+                <div class="card-header text-center bg-dark">
+                  <strong class="text-light">DETALHE DA VAGA</strong>
+                </div>
+                <div class="card-body d-flex flex-column align-items-center">
+                    <div class="card w-75">
+                        <div class="card-body">
+                            <div class="mb-3"><span><strong>Título:</strong> </span><span>Desenvolvedor Full-Stack</span></div>
+                            <div class="mb-3"><span><strong>Descrição:</strong> </span><span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut, aliquid! Esse dolorum est, ratione omnis numquam eius itaque eos praesentium alias reprehenderit totam ipsam dicta quidem quo incidunt. Reiciendis quod dignissimos distinctio quis nisi debitis.</span></div>
+                            <div><span><strong>Remuneração:</strong> </span><span>R$ 5.500,00</span></div>
+                        </div>
+                      </div>
+                      <h3 class="text-center mt-4 mb-4">Candidatos na Vaga</h3>
+                      <div class="card w-75">
+                        <div class="card-header d-flex justify-content-between text-light bg-dark">
+                          <p class="mr-4"><strong>Nome</strong></p>
+                          <p class="ml-4"><strong>Data Nascimento</strong></p>
+                          <p></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <div class="row d-flex align-items-center">
+                              <div class="col-6">
+                                <p>Tiago Schimidt</p>
+                              </div>
+                              <div class="col-6 d-flex justify-content-between align-items-center">
+                                <p>06/04/1994</p>
+                                <button type="button" class="btn btn-dark bg-danger border-0">Reprovar</button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="list-group-item">
+                            <div class="row d-flex align-items-center">
+                              <div class="col-6 text-danger">
+                                <p>Joãozinho</p>
+                              </div>
+                              <div class="col-6 d-flex justify-content-between align-items-center">
+                                <p>06/04/1994</p>
+                                <button type="button" class="btn btn-dark bg-secondary border-0">Reprovar</button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="list-group-item">
+                            <div class="row d-flex align-items-center">
+                              <div class="col-6">
+                                <p>Dev. Junior</p>
+                              </div>
+                              <div class="col-6 d-flex justify-content-between align-items-center">
+                                <p>06/04/1994</p>
+                                <button type="button" class="btn btn-dark bg-danger border-0">Reprovar</button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="list-group-item">
+                            <div class="row d-flex align-items-center">
+                              <div class="col-6">
+                                <p>Tininho</p>
+                              </div>
+                              <div class="col-6 d-flex justify-content-between align-items-center">
+                                <p>06/04/1994</p>
+                                <button type="button" class="btn btn-dark bg-danger border-0">Reprovar</button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="d-flex justify-content-between mt-4 w-75">
+                        <button type="button" class="btn btn btn-secondary">Voltar</button>
+                        <button type="button" class="btn btn-dark">Excluir Vaga</button>
+                      </div>
+                </div>
+              </div>
         </div>
-        <div id='tela-detalhe-vaga-trabalhador'>
-            <!-- Breno -->
+        <div id='tela-detalhe-vaga-trabalhador' class="w-75 d-none" style="margin-top: 100px; margin-bottom: 100px;">
+          <div class="card">
+            <div class="card-header text-center bg-dark">
+              <strong class="text-light">DETALHE DA VAGA</strong>
+            </div>
+            <div class="card-body d-flex flex-column align-items-center">
+                <div class="card w-75">
+                    <div class="card-body">
+                        <div class="mb-3"><span><strong>Título:</strong> </span><span>Desenvolvedor Full-Stack</span></div>
+                        <div class="mb-3"><span><strong>Descrição:</strong> </span><span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut, aliquid! Esse dolorum est, ratione omnis numquam eius itaque eos praesentium alias reprehenderit totam ipsam dicta quidem quo incidunt. Reiciendis quod dignissimos distinctio quis nisi debitis.</span></div>
+                        <div><span><strong>Remuneração:</strong> </span><span>R$ 5.500,00</span></div>
+                    </div>
+                  </div>
+                  <h3 class="text-center mt-4 mb-4">Candidatos na Vaga</h3>
+                  <div class="card w-75">
+                    <div class="card-header d-flex justify-content-between text-light bg-dark">
+                      <p class="mr-4"><strong>Nome</strong></p>
+                      <p class="ml-4"><strong>Data Nascimento</strong></p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-10 ">
+                            <p>Tiago Schimidt</p>
+                          </div>
+                          <div class="col-2 text-center">
+                            <p>06/04/1994</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-10 ">
+                            <p>Dev. Júnior</p>
+                          </div>
+                          <div class="col-2 text-center">
+                            <p>06/04/1994</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-10 text-danger">
+                            <p>Joãozinho</p>
+                          </div>
+                          <div class="col-2 text-center">
+                            <p>06/04/1994</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-10 ">
+                            <p>Tininho</p>
+                          </div>
+                          <div class="col-2 text-center">
+                            <p>06/04/1994</p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="d-flex justify-content-between mt-4 w-75">
+                    <button type="button" class="btn btn btn-secondary" >Voltar</button>
+                    <span class="d-none"><button type="button" class="btn btn-dark">Cancelar Candidatura</button></span>
+                    <span class="d-none"><button type="button" class="btn btn-dark">Candidatar-se</button></span>
+                    <span class=""><button type="button" disabled data-bs-toggle="button" class="btn btn-dark">Cancelar Candidatura</button></span>
+                  </div>
+            </div>
+          </div>
         </div>
 
+        <!-- ---------------------Breno--------------------- -->
+        
     </div>
     <script src="../node_modules/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/moment"></script>
