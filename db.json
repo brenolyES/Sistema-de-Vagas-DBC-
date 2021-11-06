@@ -17,6 +17,25 @@
             "titulo":"teste vaga",
             "remuneracao": 3000,
             "candidatos": []
+        },
+        {
+            "id":2, 
+            "titulo":"Desenvolvedor teste",
+            "remuneracao": 1000,
+            "candidatos": []
+        },
+        {
+            "id":3, 
+            "titulo":"Cientista de dados",
+            "remuneracao": 5000,
+            "candidatos": []
+        },
+        {
+            "id":4, 
+            "titulo":"Desenvolvedor JavaScript",
+            "remuneracao": 500,
+            "candidatos": []
         }
+        
     ]
 }
