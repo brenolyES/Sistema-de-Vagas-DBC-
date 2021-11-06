@@ -1,32 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="../Css/reset.css">
     <title>Sistema de Vagas</title>
+    <!-- <link rel="stylesheet" href="../reset.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+        #tela-inicial ul li:hover {
+            background-color: lightgray;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body style="height: 100vh;">
     <div id="container" class="h-100 flex-column d-flex align-items-center justify-content-center">
-        <div id='tela-login'>
+        <div id='tela-login' class='d-flex'>
             <!-- suzana -->
+            
         </div>
         <div id='tela-cadastro'>
             <!-- suzana -->
         </div>
-        <div id='tela-inicial'>
-             <!-- leandro -->
+        <div id='tela-inicial'
+            class="d-none flex-column justify-content-between border border-2 border border-secondary"
+            style="width: 700px; min-height: 300px;">
+            <!-- leandro -->
+            <div class="d-flex justify-content-center bg-dark">
+                <span class='text-white'>VAGAS</span>
+            </div>
+            <div class="d-flex flex-column justify-content-between p-5">
+                <ul id='lista-vagas'>
+                    <!-- <li class="d-flex justify-content-between p-2 border border-2 border-dark mb-3">
+                        <div class="d-flex mr-5">
+                            <span class="font-weight-bold pr-1">Titulo:</span>
+                            <span>Desenvolvedor Full-Stack</span>
+                        </div>
+                        <div class="d-flex ms-auto">
+                            <span class="font-weight-bold pr-1">Remuneração:</span>
+                            <span>R$ 5.500,00</span>
+                        </div>
+                    </li> -->
+                </ul>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-dark" onclick="irPara('tela-inicial','tela-login')">Sair</button>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-light" onclick="irPara('tela-inicial','tela-login')">Sair</button>
+                    <button class='btn btn-dark' onclick="irPara('tela-inicial','tela-cadastro-vaga')">Cadastrar Vaga</button>
+                </div>
+            </div>
 
         </div>
-        <!-- ---------------------Breno--------------------- -->
-        <div id='tela-detalhe-vaga-recrutador' class="w-75" style="margin-top: 100px; margin-bottom: 100px;">
+        <div id='tela-cadastro-vaga'
+            class="d-none flex-column justify-content-between border border-2 border border-secondary"
+            style="width: 700px; min-height: 300px;">
+            <div class="d-flex justify-content-center bg-dark">
+                <span class='text-white'>CADASTRAR VAGA</span>
+            </div>
+            <div class="d-flex flex-column justify-content-between p-5">
+                <form class='d-flex flex-column'>
+                    <label for='cadastro-vaga-input-titulo'>Título</label>
+                    <input id='cadastro-vaga-input-titulo' onkeyup="inserirTitulo(value)">
+                    <span id="titulo-error" class="d-none" >Título inválido</span>
+                    <label for='cadastro-vaga-input-descricao'>Descrição</label>
+                    <textarea id='cadastro-vaga-input-descricao' onkeyup="inserirDescricao(value)"></textarea>
+                    <span id="descricao-error" class="d-none">Descrição inválida</span>
+                    <label for='cadastro-vaga-input-remuneracao'>Remuneração</label>
+                    <input id='cadastro-vaga-input-remuneracao' onkeyup="inserirRemuneracao(value)">
+                    <span id="remuneracao-error" class="d-none">Remuneração inválida</span>
+                </form>
+                <div class="d-flex justify-content-between mt-5">
+                    <button class="btn btn-light" onclick="irPara('tela-cadastro-vaga','tela-inicial')">Voltar</button>
+                    <button class='btn btn-dark' onclick="verificarCadastroVaga()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+          <!-- ---------------------Breno--------------------- -->
+        <div id='tela-detalhe-vaga-recrutador' class=" w-75" style="margin-top: 100px; margin-bottom: 100px;">
             <div class="card">
                 <div class="card-header text-center bg-dark">
                   <strong class="text-light">DETALHE DA VAGA</strong>
@@ -171,6 +230,7 @@
             </div>
           </div>
         </div>
+
         <!-- ---------------------Breno--------------------- -->
         
     </div>
