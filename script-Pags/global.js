@@ -1,6 +1,4 @@
 // Insira o script de cada tela abaixo do comentário com o nome da tela.
-
-
 class Usuario {
     id; //(automático json-server)
     tipo;
@@ -75,7 +73,8 @@ const listarVagas = async () => {
     if(listaVagas.length){
         let ul = document.getElementById('lista-vagas');
         listaVagas.forEach(v => {
-            ul.appendChild(criarElementoVaga(v));
+           ul.appendChild(criarElementoVaga(v));
+
         })
     }   
 }
@@ -108,8 +107,29 @@ function criarElementoVaga(vaga){
 
     li.appendChild(divTitulo);
     li.appendChild(divRemuneracao);
+    li.addEventListener('click',chamarDetalhamentoDeVaga)
+   
 
     return li;   
+}
+
+function chamarDetalhamentoDeVaga(){
+    let id = arguments[0].srcElement.id;
+    if(!id.length){
+        id=arguments[0].srcElement.parentElement.parentElement.id;
+    }
+
+    id = id.split('-')[1];
+    if(usuario==='trabalhador'){
+        irPara('tela-cadastro-vaga','tela-detalhe-vaga-trabalhador');
+        detalharVaga(id);
+
+    }
+    else{
+        irPara('tela-cadastro-vaga','tela-detalhe-vaga-recrutador');
+        detalharVaga(id);
+    }
+    
 }
 
 listarVagas();
@@ -121,7 +141,9 @@ else{
 }
 
 
-
+function detalharVaga(id){
+    console.log("chamada detalhar vaga",id)
+}
 
 
 //-------------tela-cadastro-vaga---------------
@@ -179,8 +201,15 @@ function verificarCadastroVaga(){
     }
 }
 
-function cadastrarVaga(obj){
-    console.log(obj)
+async function cadastrarVaga(vaga){
+   await axios.post('http://localhost:3000/vagas',vaga)
+   try {
+    let response = await axios.get('http://localhost:3000/vagas',vaga);
+        console.log('inserido',response)
+    } 
+    catch(error) {
+    console.log(error);
+}    
 }
 // ------------------------tela-detalhe-vaga-recrutador --------------------
 
