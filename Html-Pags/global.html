@@ -28,7 +28,7 @@
             
         </div>
 
-        <div id='tela-cadastro'>
+        <div id='tela-cadastro' class='d-flex'>
           <div class="card" style="width: 18rem;">
             <div class="card-header">
               Cadastro
@@ -68,7 +68,7 @@
                   <label class="form-check-label" for="primeiroEmprego">Primeiro Emprego</label>
                 </div>
                 <span class='d-none' id='cadastro-usuario-feedback'></span>
-                <button type="button" class="btn btn-primary" id="voltarCadastroUsuario">Voltar</button>
+                <button type="button" class="btn btn-primary" id="voltarCadastroUsuario" onclick="irPara('tela-cadastro','tela-login')">Voltar</button>
                 <button  type="button" class="btn btn-primary" id="cadastrarCadastroUsuario" onclick="verificarCadastroUsuario()">Cadastrar</button>
               </form>
             </ul>
