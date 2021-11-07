@@ -28,42 +28,44 @@
             
         </div>
 
-        <div id='tela-cadastro'>
-          <div class="card" style="width: 18rem;">
-            <div class="card-header">
-              Cadastro
+        <div id='tela-cadastro' class="d-flex">
+          <div class="card  mb-5 mt-5" style="width: 1200px;">
+            <div class="card-header text-center bg-dark">
+              <strong class="text-light">CADASTRO</strong>
             </div>
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush d-flex flex-column align-items-center">
               <form>
-                <div class="mb-3">
+                <div class="mb-3 mt-3 pl-3 pr-3 d-flex flex-column" style="width: 700px;">
                   <label for="tipoUsuario" class="form-label">Tipo de Usuário</label>
                   <select id="tipoUsuario">
                     <option value="recrutador">Recrutador</option>
                     <option value="trabalhador">Trabalhador</option>
                   </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 pl-3 pr-3">
                   <label for="nomeCompleto" class="form-label">Nome Completo*</label>
                   <input type="email" class="form-control" id="nomeCompleto" aria-describedby="emailHelp">
                 </div>
-                <div class="mb-3">
-                  <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                <div class="mb-3  pl-3 pr-3">
+                  <label for="dataNascimento" class="form-label">Data de Nascimento*</label>
                   <input type="text" class="form-control" id="dataNascimento" aria-describedby="emailHelp">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3  pl-3 pr-3">
                   <label for="email" class="form-label">E-mail*</label>
                   <input type="email" class="form-control" id="email">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3  pl-3 pr-3">
                   <label for="senha" class="form-label">Senha*</label>
                   <input type="password" class="form-control" id="senha">
                 </div>
-                <div class="mb-3 form-check">
+                <div class="mb-3 form-check ml-3 mr-3">
                   <input type="checkbox" class="form-check-input" id="primeiroEmprego">
                   <label class="form-check-label" for="primeiroEmprego">Primeiro Emprego</label>
                 </div>
-                <button type="submit" class="btn btn-primary" id="voltarCadastroUsuario">Voltar</button>
-                <button type="submit" class="btn btn-primary" id="cadastrarCadastroUsuario">Cadastrar</button>
+                <div class="mb-3 form-check d-flex justify-content-between mr-3 pl-0 ml-3">
+                  <button type="submit" class="btn btn-secondary" id="voltarCadastroUsuario">Voltar</button>
+                  <button type="submit" class="btn btn-dark" id="cadastrarCadastroUsuario">Cadastrar</button>
+                </div>
               </form>
             </ul>
           </div>
