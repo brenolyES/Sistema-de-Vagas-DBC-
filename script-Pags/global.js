@@ -30,6 +30,8 @@ class Vaga {
     }
 }        
 
+
+
 // ---------------------- tela-login ------------------------------
 
 
@@ -51,7 +53,8 @@ const irPara = (origem, destino) => {
 }
 
 
-var usuario = 'trabalhador';
+var usuarioId = 0;
+var usuario = "trabalhador";
 
 let listaVagas=[];
 
@@ -121,25 +124,38 @@ function chamarDetalhamentoDeVaga(){
 
     id = id.split('-')[1];
     if(usuario==='trabalhador'){
-        irPara('tela-cadastro-vaga','tela-detalhe-vaga-trabalhador');
+        irPara('tela-inicial','tela-detalhe-vaga-trabalhador');
         detalharVaga(id);
 
     }
     else{
-        irPara('tela-cadastro-vaga','tela-detalhe-vaga-recrutador');
+        irPara('tela-inicial','tela-detalhe-vaga-recrutador');
         detalharVaga(id);
     }
     
 }
 
 listarVagas();
-if(usuario==='trabalhador'){
-    // tela trabalhador
-}
-else{
-    // tela recrutador
-}
 
+let classeTrabalhador = document.getElementById('btn-trabalhador');
+let classeRecrutador = document.getElementById('btn-recrutador');
+
+function selecionarBotoes(){
+
+    if(usuario==='trabalhador'){
+        // tela trabalhador
+        classeTrabalhador.className = classeTrabalhador.className.replace('d-none','d-flex');
+        classeRecrutador.className = classeRecrutador.className.replace('d-flex','d-none');
+    
+    }
+    else{
+        // tela recrutador
+        classeTrabalhador.className = classeTrabalhador.className.replace('d-flex','d-none');
+        classeRecrutador.className = classeRecrutador.className.replace('d-none','d-flex');
+    
+    }
+}
+selecionarBotoes();
 
 function detalharVaga(id){
     console.log("chamada detalhar vaga",id)
@@ -178,7 +194,6 @@ function inserirTitulo(valor){
 }
 
 function inserirDescricao(valor){
-    console.log('valor na descrição',valor)
     let descricaoValida = false;
     if(valor.length && valor!==' ') descricaoValida = true;
     
@@ -192,20 +207,48 @@ function verificarCadastroVaga(){
     let descricao = document.getElementById('cadastro-vaga-input-descricao').value;
     let remuneracao = document.getElementById('cadastro-vaga-input-remuneracao').value;
 
+    let feedback = document.getElementById('cadastro-vaga-feedback');
+    feedback.className='d-none';
+       
+        
+    
     if(inserirTitulo(titulo)&& inserirDescricao(descricao) && inserirRemuneracao(remuneracao)){
-        console.log('cadastro apto')
-        cadastrarVaga(new Vaga(titulo,descricao,remuneracao))
+        console.log('cadastro apto');
+        cadastrarVaga(new Vaga(titulo,descricao,formatarRemuneracao(remuneracao)));
     }
     else{
-        console.log('cadastro inapto')
+        feedback.innerText = 'Não foi possível cadastrar esta vaga. Verifique os campos acima.';
+        feedback.className = 'text-danger text-center';
     }
+}
+
+function formatarRemuneracao(numero){
+   // numero tem que ser recebido como string
+    numero = [...numero].map(n => n = parseInt(n,10));
+    numero.reverse();
+    let novoArray = [];
+    for(i=numero.length-1; i>=0;i--){
+        novoArray.push(numero[i]);
+        if(i>0 && i%3===0){
+            novoArray.push('.');
+        }
+    }
+
+    return `R$ ${novoArray.join('')},00`
+
 }
 
 async function cadastrarVaga(vaga){
    await axios.post('http://localhost:3000/vagas',vaga)
    try {
-    let response = await axios.get('http://localhost:3000/vagas',vaga);
-        console.log('inserido',response)
+        await axios.get('http://localhost:3000/vagas',vaga);
+        let feedback = document.getElementById('cadastro-vaga-feedback');
+        feedback.innerText = 'Vaga cadastrada com sucesso';
+        feedback.className = 'text-success text-center';
+        await setTimeout(()=>{
+            feedback.className = 'd-none';
+            irPara('tela-cadastro-vaga','tela-inicial');
+        },1000)
     } 
     catch(error) {
     console.log(error);
