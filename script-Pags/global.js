@@ -43,8 +43,44 @@ class Vaga {
 
 // ---------------------- tela-login ------------------------------
 
+async function logar(){
+    let mensagem = 'usuário inexistente ou senha inválida';
+    let email = "aa@aa.com";
+    let senha="124587/";
+    try{
+        let response = await axios.get('http://localhost:3000/usuarios');
+        let listaUsuarios = response.data;
 
+        let usuario = listaUsuarios.find(u => u.email === email && u.senha===senha);
+        console.log('usuário é: ',usuario)    
+    }
+    catch(error){
+        console.log('erro ao buscar usuário',error);
+    }
+}
+async function esqueceuASenha(email){
+    try {
+        let response = await axios.get('http://localhost:3000/usuarios');
 
+        listaUsuarios = response.data;
+
+        let mensagem = 'Não foi encontrado o usuário';
+
+        if(listaUsuarios.length){
+            listaUsuarios.forEach(u => {
+                if(u.email===email){
+                    mensagem = `Senha é: ${u.senha}`
+                }
+            })
+        }
+
+        alert(mensagem);        
+    
+    } 
+    catch(error) {
+    console.log(error);
+}    
+}
 
 
 // --------------------- tela-cadastro ----------------------------
