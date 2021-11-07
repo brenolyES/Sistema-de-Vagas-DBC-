@@ -43,22 +43,36 @@ class Vaga {
 
 // ---------------------- tela-login ------------------------------
 
+
+var usuarioLogado = {};
+
 async function logar(){
-    let mensagem = 'usuário inexistente ou senha inválida';
-    let email = "aa@aa.com";
-    let senha="124587/";
+    let erro = document.getElementById('erro-login');
+    let email = document.getElementById('login-email').value;
+    let senha = document.getElementById('login-senha').value;
+    
     try{
         let response = await axios.get('http://localhost:3000/usuarios');
         let listaUsuarios = response.data;
 
         let usuario = listaUsuarios.find(u => u.email === email && u.senha===senha);
-        console.log('usuário é: ',usuario)    
+        if(usuario!==undefined){
+            erro.className = 'd-none';
+            usuarioLogado = usuario;
+            irPara('tela-login','tela-inicial');
+            selecionarBotoes();
+        } 
+        else{
+            erro.className = 'text-danger';
+        }
+          
     }
     catch(error){
         console.log('erro ao buscar usuário',error);
     }
 }
-async function esqueceuASenha(email){
+async function esqueceuSenha(){
+    let email = prompt('Insira seu email');
     try {
         let response = await axios.get('http://localhost:3000/usuarios');
 
@@ -262,8 +276,7 @@ const irPara = (origem, destino) => {
 }
 
 
-var usuarioId = 0;
-var usuario = "trabalhador";
+
 
 let listaVagas=[];
 
@@ -332,7 +345,7 @@ function chamarDetalhamentoDeVaga(){
     }
 
     id = id.split('-')[1];
-    if(usuario==='trabalhador'){
+    if(usuarioLogado.tipo==='trabalhador'){
         irPara('tela-inicial','tela-detalhe-vaga-trabalhador');
         colocarElementosDetalheVagaTrabalhador(id);
     }
@@ -350,7 +363,7 @@ let classeRecrutador = document.getElementById('btn-recrutador');
 
 function selecionarBotoes(){
 
-    if(usuario==='trabalhador'){
+    if(usuarioLogado.tipo==='trabalhador'){
         // tela trabalhador
         classeTrabalhador.className = classeTrabalhador.className.replace('d-none','d-flex');
         classeRecrutador.className = classeRecrutador.className.replace('d-flex','d-none');
@@ -363,7 +376,7 @@ function selecionarBotoes(){
     
     }
 }
-selecionarBotoes();
+
 
 //-------------tela-cadastro-vaga---------------
 let erroTitulo = document.getElementById('titulo-error');

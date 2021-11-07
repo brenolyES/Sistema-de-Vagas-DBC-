@@ -2,78 +2,20 @@
   "usuarios": [
     {
       "id": 1,
-      "tipo": "trabalhador1",
-      "nome": "teste trabalhador1",
-      "dataNascimento": "01/01/2001",
-      "email": "teste@teste.com",
-      "senha": "123456Aa*",
-      "primeiroEmprego": true,
-      "candidaturas": []
-    },
-    {
-      "id": 2,
-      "tipo": "trabalhador2",
-      "nome": "teste trabalhador2",
-      "dataNascimento": "02/02/2001",
-      "email": "teste@teste.com",
-      "senha": "123456Aa*",
-      "primeiroEmprego": true,
-      "candidaturas": []
-    },
-    {
-      "id": "recrutador",
-      "tipo": "teste formulário",
-      "nome": "07/11/2000",
-      "dataNascimento": "teste@teste.com",
-      "email": "12345678/*Aa",
-      "senha": true,
-      "candidaturas": []
-    },
-    {
-      "id": "trabalhador",
-      "tipo": "formulario",
-      "nome": "10/10/1995",
-      "dataNascimento": "aa@aa.com",
-      "email": "12456/*As",
-      "senha": true,
-      "candidaturas": []
-    },
-    {
-      "tipo": "trabalhador",
-      "nome": "a",
-      "dataNascimento": "10/01/2003",
-      "email": "aa@aa.com",
-      "senha": "12345/*aa/2sA",
-      "primeiroEmprego": true,
-      "candidaturas": [],
-      "id": 3
-    },
-    {
-      "tipo": "trabalhador",
-      "nome": "dfsfs",
-      "dataNascimento": "10/01/2003",
-      "email": "aa@aa.com",
-      "senha": "123458/*Aa",
-      "primeiroEmprego": true,
-      "candidaturas": [],
-      "id": 4
-    },
-    {
       "tipo": "recrutador",
-      "nome": "recrutador",
-      "dataNascimento": "10/01/2003",
-      "email": "aa@aa.com",
-      "senha": "124587/*Aa",
+      "nome": "Recrutador",
+      "dataNascimento": "01/01/2001",
+      "email": "admin",
+      "senha": "admin",
       "primeiroEmprego": true,
-      "candidaturas": [],
-      "id": 5
+      "candidaturas": []
     }
   ],
   "vagas": [
     {
       "id": 1,
-      "titulo": "teste1",
-      "descricao": "testando o sistema",
+      "titulo": "vaga teste",
+      "descricao": "vaga para teste do banco",
       "remuneracao": 1000,
       "candidatos": [
         {
@@ -92,121 +34,6 @@
           "dataNascimento": "03/03/2003"
         }
       ]
-    },
-    {
-      "id": 2,
-      "titulo": "teste2",
-      "descricao": "testando o sistema2",
-      "remuneracao": 2000,
-      "candidatos": [
-        {
-          "id": 4,
-          "nome": "candidato4",
-          "dataNascimento": "04/05/2005"
-        },
-        {
-          "id": 5,
-          "nome": "candidato5",
-          "dataNascimento": "05/05/2005"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "titulo": "teste3",
-      "descricao": "testando o sistema3",
-      "remuneracao": 3000,
-      "candidatos": [
-        {
-          "id": 666,
-          "nome": "breno",
-          "dataNascimento": "06/04/1994"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "titulo": "teste4",
-      "descricao": "testando o sistema4",
-      "remuneracao": 4000,
-      "candidatos": []
-    },
-    {
-      "titulo": "html",
-      "remuneracao": "20",
-      "descricao": "primeira inserção pelo html",
-      "candidatos": [],
-      "id": 5
-    },
-    {
-      "titulo": "mascara moeda",
-      "remuneracao": "R$ 10.000,00",
-      "descricao": "teste mascara remuneração",
-      "candidatos": [],
-      "id": 6
-    },
-    {
-      "titulo": "teste mensagem",
-      "remuneracao": "R$ 2.500,00",
-      "descricao": "testando mensagem de feedback",
-      "candidatos": [],
-      "id": 7
-    },
-    {
-      "titulo": "mensagem 2",
-      "remuneracao": "R$ 1.500,00",
-      "descricao": "mensagem de sucesso",
-      "candidatos": [],
-      "id": 8
-    },
-    {
-      "titulo": "ddsada",
-      "remuneracao": "R$ 1.500,00",
-      "descricao": "sdadsa",
-      "candidatos": [],
-      "id": 9
-    },
-    {
-      "titulo": "65656",
-      "remuneracao": "R$ 10,00",
-      "descricao": "5555",
-      "candidatos": [],
-      "id": 10
-    },
-    {
-      "titulo": "a",
-      "remuneracao": "R$ 1,00",
-      "descricao": "a",
-      "candidatos": [],
-      "id": 11
-    },
-    {
-      "titulo": "mensagem erro",
-      "remuneracao": "R$ 1.000,00",
-      "descricao": "asda",
-      "candidatos": [],
-      "id": 12
-    },
-    {
-      "titulo": "teste",
-      "remuneracao": "R$ 1.000,00",
-      "descricao": " teste",
-      "candidatos": [],
-      "id": 13
-    },
-    {
-      "titulo": "teste",
-      "remuneracao": "R$ 5.000,00",
-      "descricao": "asdasd",
-      "candidatos": [],
-      "id": 14
-    },
-    {
-      "id": 15,
-      "titulo": "teste5",
-      "descricao": "testando o sistema4",
-      "remuneracao": 5000,
-      "candidatos": []
-    }
+    }   
   ]
 }
