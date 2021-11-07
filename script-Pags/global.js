@@ -1,13 +1,22 @@
 // Insira o script de cada tela abaixo do comentário com o nome da tela.
 class Usuario {
     id; //(automático json-server)
-    tipo;
-    nome;
-    dataNascimento;
-    email;
-    senha;
-    primeiroEmprego;
-    candidaturas = []; // lista de Candidatura
+    tipo='';
+    nome='';
+    dataNascimento='';
+    email='';
+    senha='';
+    primeiroEmprego=false;
+    candidaturas = []; // lista de 
+    
+    constructor(tipo,nome,dataNascimento,email,senha,primeiroEmprego){
+        this.tipo=tipo;
+        this.nome=nome;
+        this.dataNascimento=dataNascimento;
+        this.email=email;
+        this.senha=senha;
+        this.primeiroEmprego=primeiroEmprego;
+    }
 }
 
 
@@ -41,8 +50,172 @@ class Vaga {
 // --------------------- tela-cadastro ----------------------------
 
 
+const validarEmail = (emailDigitado) => {
+    mensagemErro = 'cadastro-email-erro';
+   
+    let listaCaracteres = emailDigitado.split(''); // [...emailDigitado]
+    let emailSplit = emailDigitado.split('@');
+    let possuiArroba = emailSplit.length > 1;
+    let dominioEmail = possuiArroba ? emailSplit[1] : '';
+    let dominioEmailSplit = dominioEmail.split('.');
+    let possuiPontosNoDominio = dominioEmailSplit.length > 1;
+    let possuiCaracteresEntrePontos = dominioEmailSplit.every( d => d.length > 1 );
+    let comecaComLetra = listaCaracteres.length ? listaCaracteres[0].toUpperCase() !== listaCaracteres[0].toLowerCase() : false;
+    let ehValido = possuiArroba && possuiPontosNoDominio && possuiCaracteresEntrePontos && comecaComLetra;
 
+    // para setar o texto de erro em vermelho
+    let erroEmail = document.getElementById(mensagemErro);
+    erroEmail.setAttribute('class', ehValido ? 'd-none' : 'text-danger');
 
+    return ehValido;
+}
+
+const validarSenha = (senhaDigitada) => {
+    let mensagemErro = 'cadastro-senha-erro';
+    let listaCaracteres = senhaDigitada.split('');
+
+    let letras = listaCaracteres.filter( char => char.toLowerCase() !== char.toUpperCase() );
+
+    let possuiLetraMaiuscula = letras.some( l => l.toUpperCase() === l ); // "A".toUppercase() === "A"
+    let possuiLetraMinuscula = letras.some( l => l.toLowerCase() === l );
+
+    let possuiCharEspecial = listaCaracteres.some( char => char.toLowerCase() === char.toUpperCase() && isNaN(parseInt(char)) );
+    let possuiNumero = listaCaracteres.some( char => char.toLowerCase() === char.toUpperCase() && !isNaN(parseInt(char)) );
+
+    let possuiOitoCaracteres = senhaDigitada.length >= 8;
+
+    let naoPossuiEspacos = !senhaDigitada.includes(' ');
+
+    let ehValido = possuiOitoCaracteres && possuiLetraMaiuscula && possuiLetraMinuscula && 
+        possuiCharEspecial && possuiNumero && naoPossuiEspacos;
+
+    // para setar o texto de erro em vermelho
+    let erroSenha = document.getElementById(mensagemErro);
+    erroSenha.setAttribute('class', ehValido ? 'd-none' : 'text-danger');
+
+    return ehValido;
+}
+
+const validarNome = (nomeDigitado) => {
+    let mensagemErro = 'cadastro-nome-erro';
+    let nomeSemEspaco = nomeDigitado.replaceAll(' ','');
+    let ehValido = [...nomeSemEspaco].every(char => (char.toUpperCase() !==char.toLowerCase())===true);
+   
+    let erroNome = document.getElementById(mensagemErro);
+    erroNome.setAttribute('class', ehValido ? 'd-none' : 'text-danger');
+    
+    return ehValido;
+
+}
+
+const validarData = (dataDigitada) => { 
+    let inputData = document.getElementById('dataNascimento');
+    //let dataDigitada = inputData.value;
+    let mensagemErro = 'cadastro-data-erro';
+   
+    adicionarMascaraData(inputData, dataDigitada);
+
+    let dataConvertida = moment(dataDigitada, 'DDMMYYYY');
+    let dezoitoAnosAtras = moment().diff(dataConvertida, 'years') >= 18;
+
+    // comparações de data - date1.isBefore(date2)  /  date1.isAfter(date2)  /  date1.isSameOrBefore(date2)  /  date1.isSameOrAfter(date2)
+    let dataAnteriorHoje = dataConvertida.isBefore(moment());
+
+    let ehValido = dataConvertida.isValid() && dataAnteriorHoje && dezoitoAnosAtras && dataDigitada.length === 10; // 10/05/2001
+
+    // para setar o texto de erro em vermelho
+    let erroData = document.getElementById(mensagemErro);
+    erroData.setAttribute('class', ehValido ? 'd-none' : 'text-danger');
+
+    return ehValido;
+}
+
+const adicionarMascaraData = (input, data) => {
+    let listaCaracteres = [...data];
+    // [ '1', '0', '0', '5' ]
+    
+    if(listaCaracteres && listaCaracteres.length) {
+        let dataDigitada = listaCaracteres.filter(c => !isNaN(parseInt(c))).reduce((a, b) => a + b);
+        // 10052
+        const { length } = dataDigitada;
+
+        switch(length) { 
+            case 0: case 1: case 2:
+                input.value = dataDigitada; 
+                break;
+            case 3: case 4:
+                input.value = `${dataDigitada.substr(0, 2)}/${dataDigitada.substr(2, 2)}`; // 10/05
+                break;
+            default:
+                input.value = `${dataDigitada.substr(0, 2)}/${dataDigitada.substr(2, 2)}/${dataDigitada.substr(4, 4)}`;
+        }
+    }
+}
+
+const validarTipo = () =>{
+    let selectUsuario = document.getElementById('tipoUsuario');
+	let tipo = selectUsuario.options[selectUsuario.selectedIndex].value;
+    if(tipo.length) return true;
+    return false;
+}
+
+const verificarCadastroUsuario = () => {
+    let selectUsuario = document.getElementById('tipoUsuario');
+	let tipo = selectUsuario.options[selectUsuario.selectedIndex].value;
+	console.log('select é: ',tipo);
+
+    let nome = document.getElementById('nomeCompleto').value;
+    let dataNascimento = document.getElementById('dataNascimento').value;
+    let email = document.getElementById('email').value;
+    let senha = document.getElementById('senha').value;
+
+    let feedback = document.getElementById('cadastro-usuario-feedback');
+    feedback.className='d-none';
+
+    let primeiroEmprego = document.getElementById('primeiroEmprego').checked;
+    console.log('primeiro emprego',primeiroEmprego)
+
+    if(validarTipo(tipo) && validarNome(nome)&& validarData(dataNascimento) && validarEmail(email) && validarSenha(senha)){
+        console.log('cadastro usário correto');
+        cadastrarUsuario(new Usuario(tipo,nome,dataNascimento,email,senha,primeiroEmprego));
+    }
+    else{
+        feedback.innerText = 'Não foi possível cadastrar este usuário. Verifique os campos acima.';
+        feedback.className = 'text-danger text-center';
+    }
+
+}
+
+async function cadastrarUsuario(usuario){
+  
+    try {
+        await axios.post('http://localhost:3000/usuarios',usuario)
+        let feedback = document.getElementById('cadastro-usuario-feedback');
+        feedback.innerText = 'Usuário cadastrado com sucesso';
+        feedback.className = 'text-success text-center';
+        await setTimeout(()=>{
+            feedback.className = 'd-none';
+            let inputNome = document.getElementById('nomeCompleto');
+            let inputData = document.getElementById('dataNascimento');
+            let inputEmail = document.getElementById('email');
+            let inputSenha = document.getElementById('senha');
+
+            document.getElementById('primeiroEmprego').checked=false;
+            document.getElementById('tipoUsuario').querySelector('option').selected=true;
+            resetarCampos(inputNome,inputData,inputEmail,inputSenha);
+            //irPara('tela-cadastro-vaga','tela-inicial');
+
+        },1000)
+    } 
+    catch(error) {
+    console.log(error);
+}    
+}
+
+const resetarCampos = (...campos) => {
+    console.log('campos são',campos)
+    campos.forEach(c => c.value = '');
+}
 // ---------------------tela-inicial --------------------
 
 const irPara = (origem, destino) => {

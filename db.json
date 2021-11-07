@@ -19,6 +19,54 @@
       "senha": "123456Aa*",
       "primeiroEmprego": true,
       "candidaturas": []
+    },
+    {
+      "id": "recrutador",
+      "tipo": "teste formulário",
+      "nome": "07/11/2000",
+      "dataNascimento": "teste@teste.com",
+      "email": "12345678/*Aa",
+      "senha": true,
+      "candidaturas": []
+    },
+    {
+      "id": "trabalhador",
+      "tipo": "formulario",
+      "nome": "10/10/1995",
+      "dataNascimento": "aa@aa.com",
+      "email": "12456/*As",
+      "senha": true,
+      "candidaturas": []
+    },
+    {
+      "tipo": "trabalhador",
+      "nome": "a",
+      "dataNascimento": "10/01/2003",
+      "email": "aa@aa.com",
+      "senha": "12345/*aa/2sA",
+      "primeiroEmprego": true,
+      "candidaturas": [],
+      "id": 3
+    },
+    {
+      "tipo": "trabalhador",
+      "nome": "dfsfs",
+      "dataNascimento": "10/01/2003",
+      "email": "aa@aa.com",
+      "senha": "123458/*Aa",
+      "primeiroEmprego": true,
+      "candidaturas": [],
+      "id": 4
+    },
+    {
+      "tipo": "recrutador",
+      "nome": "recrutador",
+      "dataNascimento": "10/01/2003",
+      "email": "aa@aa.com",
+      "senha": "124587/*Aa",
+      "primeiroEmprego": true,
+      "candidaturas": [],
+      "id": 5
     }
   ],
   "vagas": [
