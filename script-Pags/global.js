@@ -51,7 +51,7 @@ const irPara = (origem, destino) => {
 }
 
 
-var usuario = 'trabalhador';
+var usuario = 'recrutador';
 
 let listaVagas=[];
 
@@ -121,13 +121,12 @@ function chamarDetalhamentoDeVaga(){
 
     id = id.split('-')[1];
     if(usuario==='trabalhador'){
-        irPara('tela-cadastro-vaga','tela-detalhe-vaga-trabalhador');
-        detalharVaga(id);
-
+        irPara('tela-inicial','tela-detalhe-vaga-trabalhador');
+        colocarElementosDetalheVagaTrabalhador(id);
     }
     else{
-        irPara('tela-cadastro-vaga','tela-detalhe-vaga-recrutador');
-        detalharVaga(id);
+        irPara('tela-inicial','tela-detalhe-vaga-recrutador');
+        colocarElementosDetalheVagaRecrutador(id);
     }
     
 }
@@ -138,11 +137,6 @@ if(usuario==='trabalhador'){
 }
 else{
     // tela recrutador
-}
-
-
-function detalharVaga(id){
-    console.log("chamada detalhar vaga",id)
 }
 
 
@@ -213,7 +207,91 @@ async function cadastrarVaga(vaga){
 }
 // ------------------------tela-detalhe-vaga-recrutador --------------------
 
+const colocarElementosDetalheVagaTrabalhador = (id) => {
+    let titulo = document.getElementById('titulo-detalhe-vaga2');
+    let descricao = document.getElementById('descricao-detalhe-vaga2');
+    let remuneracao = document.getElementById('remuneracao-detalhe-vaga2');
+    let idDaDiv = Number.parseInt(id);
 
+    let colaboradores = document.getElementById('ulCandidatos2') 
+    while (colaboradores.firstChild) {
+        colaboradores.removeChild(colaboradores.lastChild);
+      };
+
+    let ulAMudarTrabalhador = document.getElementById('ulCandidatos2');
+
+    listaVagas.forEach(e => {
+        if(idDaDiv === e.id){
+            titulo.innerText = e.titulo;
+            descricao.innerText = e.descricao;
+            remuneracao.innerText = e.remuneracao;
+            e.candidatos.forEach(e => {
+                criarElementoCandidato(e, ulAMudarTrabalhador);
+            })
+        }
+    });
+}
+
+
+const colocarElementosDetalheVagaRecrutador = (id) => {
+    let titulo = document.getElementById('titulo-detalhe-vaga');
+    let descricao = document.getElementById('descricao-detalhe-vaga');
+    let remuneracao = document.getElementById('remuneracao-detalhe-vaga');
+    let idDaDiv = Number.parseInt(id);
+
+    let colaboradores = document.getElementById('ulCandidatos') 
+    while (colaboradores.firstChild) {
+        colaboradores.removeChild(colaboradores.lastChild);
+      };
+
+    let ulAMudarRecrutador = document.getElementById('ulCandidatos');
+
+    listaVagas.forEach(e => {
+        if(idDaDiv === e.id){
+            titulo.innerText = e.titulo;
+            descricao.innerText = e.descricao;
+            remuneracao.innerText = e.remuneracao;
+            e.candidatos.forEach(e => {
+                criarElementoCandidato(e, ulAMudarRecrutador);
+            })
+        }
+    });
+}
+
+
+
+const criarElementoCandidato = (candidato, ulAMudar) => {
+
+    
+    let liElemento = document.createElement('li');
+    liElemento.className = "list-group-item";
+
+    let divRow = document.createElement('div');
+    divRow.className = 'row d-flex align-items-center';
+    let divCol1 = document.createElement('div');
+    divCol1.className = "col-6";
+    let divCol2 = document.createElement('div');
+    divCol2.className = "col-6 d-flex justify-content-between align-items-center";
+    
+    let spanNome = document.createElement('span');
+    spanNome.innerText = candidato.nome;
+    
+    let spanDataNascimento = document.createElement('span');
+    spanDataNascimento.innerText = candidato.dataNascimento;
+    
+    let button = document.createElement('button');
+    button.className = "btn btn-dark bg-danger border-0";
+    button.innerText = 'Reprovar';
+    
+    ulAMudar.appendChild(liElemento);
+    liElemento.appendChild(divRow);
+    divRow.appendChild(divCol1);
+    divRow.appendChild(divCol2);
+    divCol1.appendChild(spanNome);
+    divCol2.appendChild(spanDataNascimento);
+    divCol2.appendChild(button);
+
+}
 
 
 //------------------------tela-detalhe-vaga-trabalhador-candidatado---------------
