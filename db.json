@@ -11,36 +11,5 @@
       "candidaturas": []
     }
   ],
-  "vagas": [
-    {
-      "id": 1,
-      "titulo": "vagateste1",
-      "descricao": "vaga para teste do banco",
-      "remuneracao": 1000,
-      "candidatos": [
-        {
-          "id": 1,
-          "nome": "candidato1",
-          "dataNascimento": "01/01/2001"
-        },
-        {
-          "id": 2,
-          "nome": "candidato2",
-          "dataNascimento": "02/02/2002"
-        },
-        {
-          "id": 3,
-          "nome": "candidato3",
-          "dataNascimento": "03/03/2003"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "titulo": "vagateste2",
-      "descricao": "vaga para teste do banco",
-      "remuneracao": 1000,
-      "candidatos": []
-    }   
-  ]
+  "vagas": []
 }
