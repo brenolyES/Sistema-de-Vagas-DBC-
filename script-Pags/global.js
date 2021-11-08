@@ -45,9 +45,11 @@ class Vaga {
 
 
 var usuarioLogado = {};
+const erroServidor = "Erro de conexão. Contate o administrador do sistema.";
+var erroLogin = document.getElementById('erro-login');
 
 async function logar(){
-    let erro = document.getElementById('erro-login');
+    erroLogin.className = 'd-none';
     let email = document.getElementById('login-email').value;
     let senha = document.getElementById('login-senha').value;
     
@@ -57,21 +59,24 @@ async function logar(){
 
         let usuario = listaUsuarios.find(u => u.email === email && u.senha===senha);
         if(usuario!==undefined){
-            erro.className = 'd-none';
+            erroLogin.className = 'd-none';
             usuarioLogado = usuario;
             irPara('tela-login','tela-inicial');
             selecionarBotoes();
         } 
         else{
-            erro.className = 'text-danger';
+            erroLogin.className = 'text-danger';
+            erroLogin.innerText = 'Usuário inexistente ou senha inválida.'
         }
           
     }
     catch(error){
-        console.log('erro ao buscar usuário',error);
+        erroLogin.className = 'text-danger';
+        erroLogin.innerText = erroServidor;
     }
 }
 async function esqueceuSenha(){
+    erroLogin.className = 'd-none';
     let email = prompt('Insira seu email');
     try {
         let response = await axios.get('http://localhost:3000/usuarios');
@@ -92,7 +97,8 @@ async function esqueceuSenha(){
     
     } 
     catch(error) {
-    console.log(error);
+    erroLogin.className='text-danger';
+    erroLogin.innerText= erroServidor;
 }    
 }
 
@@ -237,10 +243,10 @@ const verificarCadastroUsuario = () => {
 }
 
 async function cadastrarUsuario(usuario){
-  
+    let feedback = document.getElementById('cadastro-usuario-feedback');
+    feedback.className = 'd-none';
     try {
         await axios.post('http://localhost:3000/usuarios',usuario)
-        let feedback = document.getElementById('cadastro-usuario-feedback');
         feedback.innerText = 'Usuário cadastrado com sucesso';
         feedback.className = 'text-success text-center';
         await setTimeout(()=>{
@@ -253,12 +259,12 @@ async function cadastrarUsuario(usuario){
             document.getElementById('primeiroEmprego').checked=false;
             document.getElementById('tipoUsuario').querySelector('option').selected=true;
             resetarCampos(inputNome,inputData,inputEmail,inputSenha);
-            //irPara('tela-cadastro-vaga','tela-inicial');
-
+            
         },1000)
     } 
     catch(error) {
-    console.log(error);
+    feedback.className = 'text-danger';
+    feedback.innerText = erroServidor;
 }    
 }
 
@@ -455,10 +461,10 @@ function formatarRemuneracao(numero){
 }
 
 async function cadastrarVaga(vaga){
-   await axios.post('http://localhost:3000/vagas',vaga)
+    let feedback = document.getElementById('cadastro-vaga-feedback');
+    await axios.post('http://localhost:3000/vagas',vaga)
    try {
         await axios.get('http://localhost:3000/vagas',vaga);
-        let feedback = document.getElementById('cadastro-vaga-feedback');
         feedback.innerText = 'Vaga cadastrada com sucesso';
         feedback.className = 'text-success text-center';
         await setTimeout(()=>{
@@ -467,7 +473,8 @@ async function cadastrarVaga(vaga){
         },1000)
     } 
     catch(error) {
-    console.log(error);
+    feedback.className = 'text-danger';
+    feedback.innerText = erroServidor;
 }    
 }
 // ------------------------tela-detalhe-vaga-recrutador --------------------
@@ -513,6 +520,7 @@ const colocarElementosDetalheVagaRecrutador = (id) => {
 
     listaVagas.forEach(e => {
         if(idDaDiv === e.id){
+            document.getElementById('vaga-id').querySelector('div').id=`vaga-${e.id}`;
             titulo.innerText = e.titulo;
             descricao.innerText = e.descricao;
             remuneracao.innerText = e.remuneracao;
@@ -523,7 +531,18 @@ const colocarElementosDetalheVagaRecrutador = (id) => {
     });
 }
 
+const excluirVaga = () => {
+    let id =  document.getElementById('vaga-id').querySelector('div').id.split('-')[1];
+    console.log('id para excluir vaga é: ', id)
+    try{
+        axios.delete(`http://localhost:3000/vagas/${id}`);
+        irPara('tela-detalhe-vaga-recrutador','tela-inicial')
+    }
+    catch(error){
+        console.log('erro ao deletar vaga:',error);
+    }
 
+}
 
 const criarElementoCandidato = (candidato, ulAMudar) => {
 
