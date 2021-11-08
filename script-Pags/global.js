@@ -533,7 +533,7 @@ const colocarElementosDetalheVagaRecrutador = (id) => {
 
 const excluirVaga = () => {
     let id =  document.getElementById('vaga-id').querySelector('div').id.split('-')[1];
-    console.log('id para excluir vaga é: ', id)
+    //console.log('id para excluir vaga é: ', id)
     try{
         axios.delete(`http://localhost:3000/vagas/${id}`);
         irPara('tela-detalhe-vaga-recrutador','tela-inicial')
