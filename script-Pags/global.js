@@ -493,7 +493,6 @@ async function cadastrarVaga(vaga){
 // ------------------------tela-detalhe-vaga-recrutador --------------------
 
 const  colocarElementosDetalheVagaTrabalhador = (id) => {
-    
     let titulo = document.getElementById('titulo-detalhe-vaga2');
     let descricao = document.getElementById('descricao-detalhe-vaga2');
     let remuneracao = document.getElementById('remuneracao-detalhe-vaga2');
@@ -517,7 +516,10 @@ const  colocarElementosDetalheVagaTrabalhador = (id) => {
         botaoCancelarCandidatura.className = 'd-none';
     }
 
-   
+    let colaboradores = document.getElementById('ulCandidatos2') 
+    while (colaboradores.firstChild) {
+        colaboradores.removeChild(colaboradores.lastChild);
+      };
 
     let ulAMudarTrabalhador = document.getElementById('ulCandidatos2');
 
@@ -575,15 +577,16 @@ async function cancelarCandidatura(){
 }
 
 const colocarElementosDetalheVagaRecrutador = (id) => {
+    let colaboradores = document.getElementById('ulCandidatos') 
+    while (colaboradores.firstChild) {
+        colaboradores.removeChild(colaboradores.lastChild);
+      };
     let titulo = document.getElementById('titulo-detalhe-vaga');
     let descricao = document.getElementById('descricao-detalhe-vaga');
     let remuneracao = document.getElementById('remuneracao-detalhe-vaga');
     let idDaDiv = Number.parseInt(id);
 
-    let colaboradores = document.getElementById('ulCandidatos') 
-    while (colaboradores.firstChild) {
-        colaboradores.removeChild(colaboradores.lastChild);
-      };
+  
 
     let ulAMudarRecrutador = document.getElementById('ulCandidatos');
 
@@ -615,8 +618,7 @@ const excluirVaga = () => {
 }
 
 const criarElementoCandidato = (candidato, ulAMudar) => {
-    let idDaVaga = Number(document.getElementById('vaga-id').querySelector('div').id.split('-')[1]);
-    console.log('id da vaga é: ',idDaVaga)
+    let idDaVaga = Number(document.getElementById('vaga-trabalhador').querySelector('div').id.split('-')[1]);
     let liElemento = document.createElement('li');
     liElemento.className = "list-group-item";
     liElemento.id = `candidato-${candidato.id}`;
@@ -642,14 +644,14 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
     button.id = `candidato-${candidato.id}`;
 
     let reprovado = candidato.candidaturas.find(c => c.idVaga === idDaVaga);
-    console.log('reprovado é:' ,reprovado)
+    console.log('reprovado: ',reprovado)
     if(reprovado!==undefined && reprovado.reprovado){
         button.setAttribute('disabled','disabled');
         button.className = 'btn btn-secondary';
     }
     else{
         button.innerText = 'Reprovar';
-        button.addEventListener('click',()=> reprovar(button.id,button));
+        button.addEventListener('click',()=> reprovar(button.id,button))
     }
     
    
@@ -667,15 +669,16 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
 const reprovar = async (id,button)=>{
     console.log('clicado no reprovar',id);
     id = id.split('-')[1];
-    let idDaVaga = Number(document.getElementById('vaga-id').querySelector('div').id.split('-')[1]);
+    let idDaVaga = Number.parseInt(document.getElementById('vaga-trabalhador').querySelector('div').id.split('-')[1]);
     console.log('idDaVaga',idDaVaga);
 
-    // alterar no usuário candidaturas -- Inserir o try
+    // alterar no usuário candidaturas
 
     let responseGetUsuario = await axios.get(`http://localhost:3000/usuarios/${id}`);
     let getUsuarioDados = responseGetUsuario.data;
     let candidaturaAReprovar = getUsuarioDados.candidaturas.find(c => c.idVaga===idDaVaga);
     candidaturaAReprovar.reprovado = true;
+    console.log('getUsuário',getUsuarioDados);
     await axios.put(`http://localhost:3000/usuarios/${id}`,getUsuarioDados);
     button.setAttribute('disabled','disabled');
     button.className = 'btn btn-secondary';

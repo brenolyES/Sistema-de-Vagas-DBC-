@@ -23,11 +23,6 @@
           "idVaga": 3,
           "idCandidato": 1,
           "reprovado": true
-        },
-        {
-          "idVaga": 3,
-          "idCandidato": 1,
-          "reprovado": false
         }
       ]
     },
