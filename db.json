@@ -57,10 +57,36 @@
         {
           "idVaga": 2,
           "idCandidato": 4,
-          "reprovado": true
+          "reprovado": false
         }
       ],
       "id": 4
+    },
+    {
+      "tipo": "trabalhador",
+      "nome": "brenoo",
+      "dataNascimento": "14/12/1955",
+      "email": "bp@upe.br",
+      "senha": "1!Aaaaaa",
+      "primeiroEmprego": true,
+      "candidaturas": [
+        {
+          "idVaga": 1,
+          "idCandidato": 5,
+          "reprovado": ""
+        },
+        {
+          "idVaga": 2,
+          "idCandidato": 5,
+          "reprovado": ""
+        },
+        {
+          "idVaga": 3,
+          "idCandidato": 5,
+          "reprovado": ""
+        }
+      ],
+      "id": 5
     }
   ],
   "vagas": [
@@ -102,16 +128,6 @@
           "senha": "admin",
           "primeiroEmprego": true,
           "candidaturas": []
-        },
-        {
-          "tipo": "trabalhador",
-          "nome": "Manuel Tobias",
-          "dataNascimento": "04/04/1995",
-          "email": "manoel@ig.br",
-          "senha": "Manuel1995*",
-          "primeiroEmprego": true,
-          "candidaturas": [],
-          "id": 4
         }
       ],
       "id": 2

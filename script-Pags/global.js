@@ -628,7 +628,13 @@ const criarElementoCandidato = (candidato, ulAMudar,id) => {
     let divCol1 = document.createElement('div');
     divCol1.className = "col-6";
     let divCol2 = document.createElement('div');
-    divCol2.className = "col-6 d-flex justify-content-between align-items-center";
+
+    // -------------suzana--------------
+    if(usuarioLogado.tipo != "trabalhador"){
+        divCol2.className = "col-6 d-flex justify-content-between align-items-center";
+    }else {
+        divCol2.className = "col-6 d-flex justify-content-between align-items-center flex-row-reverse";
+    }
     
     let spanNome = document.createElement('span');
     spanNome.innerText = candidato.nome;
@@ -638,34 +644,33 @@ const criarElementoCandidato = (candidato, ulAMudar,id) => {
     let spanDataNascimento = document.createElement('span');
     spanDataNascimento.innerText = candidato.dataNascimento;
     
-    let button = document.createElement('button');
-    button.className = "btn btn-dark bg-danger border-0";
-    button.name = "btn-reprovar";
-    button.id = `candidato-${candidato.id}`;
+        ulAMudar.appendChild(liElemento);
+        liElemento.appendChild(divRow);
+        divRow.appendChild(divCol1);
+        divRow.appendChild(divCol2);
+        divCol1.appendChild(spanNome);
+        divCol2.appendChild(spanDataNascimento);
+        
+    // -------------suzana--------------
+    if (usuarioLogado.tipo != "trabalhador") {
+        let button = document.createElement('button');
+        button.className = "btn btn-danger border-0";
+        button.innerText = 'Reprovar';
+        button.name = "btn-reprovar";
+        button.id = `candidato-${candidato.id}`;
+        divCol2.appendChild(button);
 
-       let reprovado = candidato.candidaturas.find(c => c.idVaga === id);
-        console.log('reprovado: ',reprovado)
-        if(reprovado!==undefined && reprovado.reprovado){
-            button.setAttribute('disabled','disabled');
+        let reprovado = candidato.candidaturas.find(c => c.idVaga === id);
+        console.log('reprovado: ', reprovado)
+        if (reprovado !== undefined && reprovado.reprovado) {
+            button.setAttribute('disabled', 'disabled');
             button.className = 'btn btn-secondary';
         }
-        else{
+        else {
             button.innerText = 'Reprovar';
-            button.addEventListener('click',()=> reprovar(button.id,button))
+            button.addEventListener('click', () => reprovar(button.id, button))
         }
-    
-  
-    
-   
-    
-    ulAMudar.appendChild(liElemento);
-    liElemento.appendChild(divRow);
-    divRow.appendChild(divCol1);
-    divRow.appendChild(divCol2);
-    divCol1.appendChild(spanNome);
-    divCol2.appendChild(spanDataNascimento);
-    divCol2.appendChild(button);
-
+    }
 }
 
 const reprovar = async (id,button)=>{
