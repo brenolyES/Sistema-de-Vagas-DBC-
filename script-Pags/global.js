@@ -493,6 +493,7 @@ async function cadastrarVaga(vaga){
 // ------------------------tela-detalhe-vaga-recrutador --------------------
 
 const  colocarElementosDetalheVagaTrabalhador = (id) => {
+    
     let titulo = document.getElementById('titulo-detalhe-vaga2');
     let descricao = document.getElementById('descricao-detalhe-vaga2');
     let remuneracao = document.getElementById('remuneracao-detalhe-vaga2');
@@ -516,10 +517,7 @@ const  colocarElementosDetalheVagaTrabalhador = (id) => {
         botaoCancelarCandidatura.className = 'd-none';
     }
 
-    let colaboradores = document.getElementById('ulCandidatos2') 
-    while (colaboradores.firstChild) {
-        colaboradores.removeChild(colaboradores.lastChild);
-      };
+   
 
     let ulAMudarTrabalhador = document.getElementById('ulCandidatos2');
 
@@ -617,10 +615,11 @@ const excluirVaga = () => {
 }
 
 const criarElementoCandidato = (candidato, ulAMudar) => {
-
-    
+    let idDaVaga = Number(document.getElementById('vaga-id').querySelector('div').id.split('-')[1]);
+    console.log('id da vaga é: ',idDaVaga)
     let liElemento = document.createElement('li');
     liElemento.className = "list-group-item";
+    liElemento.id = `candidato-${candidato.id}`;
 
     let divRow = document.createElement('div');
     divRow.className = 'row d-flex align-items-center';
@@ -632,13 +631,28 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
     let spanNome = document.createElement('span');
     spanNome.innerText = candidato.nome;
     
+    liElemento.id = `candidato-${candidato.id}`;
  
     let spanDataNascimento = document.createElement('span');
     spanDataNascimento.innerText = candidato.dataNascimento;
     
     let button = document.createElement('button');
     button.className = "btn btn-dark bg-danger border-0";
-    button.innerText = 'Reprovar';
+    button.name = "btn-reprovar";
+    button.id = `candidato-${candidato.id}`;
+
+    let reprovado = candidato.candidaturas.find(c => c.idVaga === idDaVaga);
+    console.log('reprovado é:' ,reprovado)
+    if(reprovado!==undefined && reprovado.reprovado){
+        button.setAttribute('disabled','disabled');
+        button.className = 'btn btn-secondary';
+    }
+    else{
+        button.innerText = 'Reprovar';
+        button.addEventListener('click',()=> reprovar(button.id,button));
+    }
+    
+   
     
     ulAMudar.appendChild(liElemento);
     liElemento.appendChild(divRow);
@@ -650,6 +664,23 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
 
 }
 
+const reprovar = async (id,button)=>{
+    console.log('clicado no reprovar',id);
+    id = id.split('-')[1];
+    let idDaVaga = Number(document.getElementById('vaga-id').querySelector('div').id.split('-')[1]);
+    console.log('idDaVaga',idDaVaga);
+
+    // alterar no usuário candidaturas -- Inserir o try
+
+    let responseGetUsuario = await axios.get(`http://localhost:3000/usuarios/${id}`);
+    let getUsuarioDados = responseGetUsuario.data;
+    let candidaturaAReprovar = getUsuarioDados.candidaturas.find(c => c.idVaga===idDaVaga);
+    candidaturaAReprovar.reprovado = true;
+    await axios.put(`http://localhost:3000/usuarios/${id}`,getUsuarioDados);
+    button.setAttribute('disabled','disabled');
+    button.className = 'btn btn-secondary';
+
+}
 
 //------------------------tela-detalhe-vaga-trabalhador-candidatado---------------
 

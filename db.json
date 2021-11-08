@@ -17,12 +17,12 @@
         {
           "idVaga": 1,
           "idCandidato": 1,
-          "reprovado": false
+          "reprovado": true
         },
         {
           "idVaga": 3,
           "idCandidato": 1,
-          "reprovado": false
+          "reprovado": true
         },
         {
           "idVaga": 3,
