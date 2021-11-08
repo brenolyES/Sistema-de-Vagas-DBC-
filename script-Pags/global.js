@@ -23,7 +23,7 @@ class Usuario {
 class Candidatura {
     idVaga=0;
     idCandidato=0;
-    reprovado=false; // true or false
+    reprovado=''; // true or false
     constructor(idVaga,idCandidato){
         this.idVaga = idVaga;
         this.idCandidato = idCandidato;
@@ -530,7 +530,7 @@ const  colocarElementosDetalheVagaTrabalhador = (id) => {
             descricao.innerText = e.descricao;
             remuneracao.innerText = e.remuneracao;
             e.candidatos.forEach(e => {
-                criarElementoCandidato(e, ulAMudarTrabalhador);
+                criarElementoCandidato(e, ulAMudarTrabalhador,id);
             })
         }
     });
@@ -581,6 +581,7 @@ const colocarElementosDetalheVagaRecrutador = (id) => {
     while (colaboradores.firstChild) {
         colaboradores.removeChild(colaboradores.lastChild);
       };
+
     let titulo = document.getElementById('titulo-detalhe-vaga');
     let descricao = document.getElementById('descricao-detalhe-vaga');
     let remuneracao = document.getElementById('remuneracao-detalhe-vaga');
@@ -597,7 +598,7 @@ const colocarElementosDetalheVagaRecrutador = (id) => {
             descricao.innerText = e.descricao;
             remuneracao.innerText = e.remuneracao;
             e.candidatos.forEach(e => {
-                criarElementoCandidato(e, ulAMudarRecrutador);
+                criarElementoCandidato(e, ulAMudarRecrutador,e.id);
             })
         }
     });
@@ -617,8 +618,7 @@ const excluirVaga = () => {
 
 }
 
-const criarElementoCandidato = (candidato, ulAMudar) => {
-    let idDaVaga = Number(document.getElementById('vaga-trabalhador').querySelector('div').id.split('-')[1]);
+const criarElementoCandidato = (candidato, ulAMudar,id) => {
     let liElemento = document.createElement('li');
     liElemento.className = "list-group-item";
     liElemento.id = `candidato-${candidato.id}`;
@@ -643,16 +643,18 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
     button.name = "btn-reprovar";
     button.id = `candidato-${candidato.id}`;
 
-    let reprovado = candidato.candidaturas.find(c => c.idVaga === idDaVaga);
-    console.log('reprovado: ',reprovado)
-    if(reprovado!==undefined && reprovado.reprovado){
-        button.setAttribute('disabled','disabled');
-        button.className = 'btn btn-secondary';
-    }
-    else{
-        button.innerText = 'Reprovar';
-        button.addEventListener('click',()=> reprovar(button.id,button))
-    }
+       let reprovado = candidato.candidaturas.find(c => c.idVaga === id);
+        console.log('reprovado: ',reprovado)
+        if(reprovado!==undefined && reprovado.reprovado){
+            button.setAttribute('disabled','disabled');
+            button.className = 'btn btn-secondary';
+        }
+        else{
+            button.innerText = 'Reprovar';
+            button.addEventListener('click',()=> reprovar(button.id,button))
+        }
+    
+  
     
    
     
@@ -668,8 +670,8 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
 
 const reprovar = async (id,button)=>{
     console.log('clicado no reprovar',id);
-    id = id.split('-')[1];
-    let idDaVaga = Number.parseInt(document.getElementById('vaga-trabalhador').querySelector('div').id.split('-')[1]);
+    id = Number.parseInt(id.split('-')[1]);
+    let idDaVaga = Number.parseInt(document.getElementById('vaga-id').querySelector('div').id.split('-')[1]);
     console.log('idDaVaga',idDaVaga);
 
     // alterar no usuário candidaturas
@@ -682,8 +684,23 @@ const reprovar = async (id,button)=>{
     await axios.put(`http://localhost:3000/usuarios/${id}`,getUsuarioDados);
     button.setAttribute('disabled','disabled');
     button.className = 'btn btn-secondary';
+    console.log('get usuario',getUsuarioDados)
+
+    let responseGetVaga = await axios.get(`http://localhost:3000/vagas/${idDaVaga}`);
+    
+    let getVagaDados = responseGetVaga.data;
+    console.log('get vaga dados',getVagaDados)
+    console.log('id do trabalhador',id)
+    let candidatoReprovado = getVagaDados.candidatos.find(e => e.id ===id);
+    candidatoReprovado = getUsuarioDados;
+   console.log('getVagaDados',getVagaDados)
+    
+
+   
+    await axios.put(`http://localhost:3000/vagas/${idDaVaga}`,getVagaDados);
 
 }
+
 
 //------------------------tela-detalhe-vaga-trabalhador-candidatado---------------
 
