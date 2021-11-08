@@ -505,7 +505,7 @@ const  colocarElementosDetalheVagaTrabalhador = (id) => {
         botaoCandidatar.className = 'd-none';
         botaoCancelarCandidatura.className = 'btn btn-dark';
         let candidaturas = usuarioLogado.candidaturas.find(c => c.idVaga===Number(id))
-        if(!candidaturas.reprovado){
+        if(candidaturas.reprovado){
             botaoCancelarCandidatura.setAttribute('disabled','disabled');
             // fazer função para colocar nome em vermelho;
 

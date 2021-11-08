@@ -12,7 +12,7 @@
         {
           "idVaga": 2,
           "idCandidato": 1,
-          "reprovado": false
+          "reprovado": true
         },
         {
           "idVaga": 1,
