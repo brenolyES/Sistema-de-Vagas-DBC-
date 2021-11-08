@@ -2,14 +2,66 @@
   "usuarios": [
     {
       "id": 1,
-      "tipo": "trabalhador",
+      "tipo": "recrutador",
       "nome": "Recrutador",
       "dataNascimento": "01/01/2001",
       "email": "admin",
       "senha": "admin",
       "primeiroEmprego": true,
       "candidaturas": []
+    },
+    {
+      "tipo": "recrutador",
+      "nome": "Recrutador Master",
+      "dataNascimento": "04/10/1985",
+      "email": "recrutador@rh.com",
+      "senha": "123456Rh/",
+      "primeiroEmprego": false,
+      "candidaturas": [],
+      "id": 2
+    },
+    {
+      "tipo": "recrutador",
+      "nome": "Josefina de Beauharnais",
+      "dataNascimento": "05/04/1950",
+      "email": "josefina@gmail.com",
+      "senha": "Aa12345/*",
+      "primeiroEmprego": false,
+      "candidaturas": [],
+      "id": 3
+    },
+    {
+      "tipo": "trabalhador",
+      "nome": "Manuel Tobias",
+      "dataNascimento": "04/04/1995",
+      "email": "manoel@ig.br",
+      "senha": "Manuel1995*",
+      "primeiroEmprego": true,
+      "candidaturas": [],
+      "id": 4
     }
   ],
-  "vagas": []
+  "vagas": [
+    {
+      "titulo": "Desenvolvedor Jr",
+      "remuneracao": "R$ 5.000,00",
+      "descricao": "JavaScript, Html e Css",
+      "candidatos": [],
+      "id": 1
+    },
+    {
+      "titulo": "Dev. React",
+      "remuneracao": "R$ 6.500,00",
+      "descricao": "Desenvolver Single-page application com React.",
+      "candidatos": [],
+      "id": 2
+    },
+    {
+      "titulo": "Auxiliar administrativo",
+      "remuneracao": "R$ 2.500,00",
+      "descricao": "Auxiliar nas tarefas administrativas do departamento de Recursos Humanos e demais áreas da empresa.",
+      "candidatos": [],
+      "id": 3
+    }
+  ]
 }
