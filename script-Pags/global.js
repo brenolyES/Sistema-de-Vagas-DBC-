@@ -21,9 +21,14 @@ class Usuario {
 
 
 class Candidatura {
-    idVaga;
-    idCandidato;
-    reprovado; // true or false
+    idVaga=0;
+    idCandidato=0;
+    reprovado=false; // true or false
+    constructor(idVaga,idCandidato){
+        this.idVaga = idVaga;
+        this.idCandidato = idCandidato;
+    }
+
 }
 
 class Vaga {
@@ -62,6 +67,7 @@ async function logar(){
             erroLogin.className = 'd-none';
             usuarioLogado = usuario;
             irPara('tela-login','tela-inicial');
+            listarVagas();
             selecionarBotoes();
         } 
         else{
@@ -287,6 +293,12 @@ const irPara = (origem, destino) => {
 let listaVagas=[];
 
 const listarVagas = async () => {
+    
+    let vagas = document.getElementById('lista-vagas'); 
+    while (vagas.firstChild) {
+        vagas.removeChild(vagas.lastChild);
+      };
+
     try {
         let response = await axios.get('http://localhost:3000/vagas');
         if(response.data.length){
@@ -362,7 +374,6 @@ function chamarDetalhamentoDeVaga(){
     
 }
 
-listarVagas();
 
 let classeTrabalhador = document.getElementById('btn-trabalhador');
 let classeRecrutador = document.getElementById('btn-recrutador');
@@ -469,7 +480,9 @@ async function cadastrarVaga(vaga){
         feedback.className = 'text-success text-center';
         await setTimeout(()=>{
             feedback.className = 'd-none';
+           
             irPara('tela-cadastro-vaga','tela-inicial');
+            listarVagas();
         },1000)
     } 
     catch(error) {
@@ -479,11 +492,29 @@ async function cadastrarVaga(vaga){
 }
 // ------------------------tela-detalhe-vaga-recrutador --------------------
 
-const colocarElementosDetalheVagaTrabalhador = (id) => {
+const  colocarElementosDetalheVagaTrabalhador = (id) => {
     let titulo = document.getElementById('titulo-detalhe-vaga2');
     let descricao = document.getElementById('descricao-detalhe-vaga2');
     let remuneracao = document.getElementById('remuneracao-detalhe-vaga2');
     let idDaDiv = Number.parseInt(id);
+    let botaoCandidatar = document.getElementById('candidatar');
+    let botaoCancelarCandidatura = document.getElementById('cancelarCandidatura');
+    let ehCandidato = usuarioLogado.candidaturas.find(candidaturas => candidaturas.idVaga===Number(id))!==undefined;
+    
+    if(ehCandidato){
+        botaoCandidatar.className = 'd-none';
+        botaoCancelarCandidatura.className = 'btn btn-dark';
+        let candidaturas = usuarioLogado.candidaturas.find(c => c.idVaga===Number(id))
+        if(!candidaturas.reprovado){
+            botaoCancelarCandidatura.setAttribute('disabled','disabled');
+            // fazer função para colocar nome em vermelho;
+
+        }
+    }
+    else{
+        botaoCandidatar.className = 'btn btn-dark';
+        botaoCancelarCandidatura.className = 'd-none';
+    }
 
     let colaboradores = document.getElementById('ulCandidatos2') 
     while (colaboradores.firstChild) {
@@ -494,6 +525,7 @@ const colocarElementosDetalheVagaTrabalhador = (id) => {
 
     listaVagas.forEach(e => {
         if(idDaDiv === e.id){
+            document.getElementById('vaga-trabalhador').querySelector('div').id=`vaga-${id}`;
             titulo.innerText = e.titulo;
             descricao.innerText = e.descricao;
             remuneracao.innerText = e.remuneracao;
@@ -504,6 +536,45 @@ const colocarElementosDetalheVagaTrabalhador = (id) => {
     });
 }
 
+async function candidatar(){
+    let id = document.getElementById('vaga-trabalhador').querySelector('div').id.split('-')[1];
+    let candidatura = new Candidatura(Number(id),usuarioLogado.id);
+
+    try{
+        let responseGetUsuario = await axios.get(`http://localhost:3000/usuarios/${usuarioLogado.id}`);
+        let dadosGetUsuario = responseGetUsuario.data;
+        dadosGetUsuario.candidaturas.push(candidatura);
+        await axios.put(`http://localhost:3000/usuarios/${usuarioLogado.id}`,dadosGetUsuario);
+
+        let responseGetVaga = await axios.get(`http://localhost:3000/vagas/${id}`);
+        let dadosGetVaga = responseGetVaga.data;
+        dadosGetVaga.candidatos.push(usuarioLogado);
+        console.log('dadosGetVaga',dadosGetVaga);
+        console.log('id da vaga é',id)
+        await axios.put(`http://localhost:3000/vagas/${id}`,dadosGetVaga);
+       
+        irPara('tela-detalhe-vaga-trabalhador','tela-inicial');
+        listarVagas();
+    }
+    catch(error){
+        console.log('erro: ',error)
+    }
+}
+
+async function cancelarCandidatura(){
+    let id = document.getElementById('vaga-trabalhador').querySelector('div').id.split('-')[1];
+    // retirar candidatura do objeto usuarioLogado
+    usuarioLogado.candidaturas = usuarioLogado.candidaturas.filter(c => c.idVaga !==id);
+    await axios.put(`http://localhost:3000/usuarios/${usuarioLogado.id}`,usuarioLogado);
+
+    let responseGetVaga = await axios.get(`http://localhost:3000/vagas/${id}`);
+    let dadosGetVagas = responseGetVaga.data;
+    dadosGetVagas.candidatos = dadosGetVagas.candidatos.filter(c => c.id !== usuarioLogado.id);
+
+    await axios.put(`http://localhost:3000/vagas/${id}`,dadosGetVagas);
+    irPara('tela-detalhe-vaga-trabalhador','tela-inicial');
+    listarVagas();
+}
 
 const colocarElementosDetalheVagaRecrutador = (id) => {
     let titulo = document.getElementById('titulo-detalhe-vaga');
@@ -536,7 +607,8 @@ const excluirVaga = () => {
     //console.log('id para excluir vaga é: ', id)
     try{
         axios.delete(`http://localhost:3000/vagas/${id}`);
-        irPara('tela-detalhe-vaga-recrutador','tela-inicial')
+        irPara('tela-detalhe-vaga-recrutador','tela-inicial');
+        listarVagas();
     }
     catch(error){
         console.log('erro ao deletar vaga:',error);
@@ -560,6 +632,7 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
     let spanNome = document.createElement('span');
     spanNome.innerText = candidato.nome;
     
+ 
     let spanDataNascimento = document.createElement('span');
     spanDataNascimento.innerText = candidato.dataNascimento;
     

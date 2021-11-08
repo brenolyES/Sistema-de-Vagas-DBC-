@@ -2,13 +2,34 @@
   "usuarios": [
     {
       "id": 1,
-      "tipo": "recrutador",
+      "tipo": "trabalhador",
       "nome": "Recrutador",
       "dataNascimento": "01/01/2001",
       "email": "admin",
       "senha": "admin",
       "primeiroEmprego": true,
-      "candidaturas": []
+      "candidaturas": [
+        {
+          "idVaga": 2,
+          "idCandidato": 1,
+          "reprovado": false
+        },
+        {
+          "idVaga": 1,
+          "idCandidato": 1,
+          "reprovado": false
+        },
+        {
+          "idVaga": 3,
+          "idCandidato": 1,
+          "reprovado": false
+        },
+        {
+          "idVaga": 3,
+          "idCandidato": 1,
+          "reprovado": false
+        }
+      ]
     },
     {
       "tipo": "recrutador",
@@ -37,7 +58,13 @@
       "email": "manoel@ig.br",
       "senha": "Manuel1995*",
       "primeiroEmprego": true,
-      "candidaturas": [],
+      "candidaturas": [
+        {
+          "idVaga": 2,
+          "idCandidato": 4,
+          "reprovado": false
+        }
+      ],
       "id": 4
     }
   ],
@@ -46,21 +73,86 @@
       "titulo": "Desenvolvedor Jr",
       "remuneracao": "R$ 5.000,00",
       "descricao": "JavaScript, Html e Css",
-      "candidatos": [],
+      "candidatos": [
+        {
+          "id": 1,
+          "tipo": "trabalhador",
+          "nome": "Recrutador",
+          "dataNascimento": "01/01/2001",
+          "email": "admin",
+          "senha": "admin",
+          "primeiroEmprego": true,
+          "candidaturas": [
+            {
+              "idVaga": 2,
+              "idCandidato": 1,
+              "reprovado": false
+            }
+          ]
+        }
+      ],
       "id": 1
     },
     {
       "titulo": "Dev. React",
       "remuneracao": "R$ 6.500,00",
       "descricao": "Desenvolver Single-page application com React.",
-      "candidatos": [],
+      "candidatos": [
+        {
+          "id": 1,
+          "tipo": "trabalhador",
+          "nome": "Recrutador",
+          "dataNascimento": "01/01/2001",
+          "email": "admin",
+          "senha": "admin",
+          "primeiroEmprego": true,
+          "candidaturas": []
+        },
+        {
+          "tipo": "trabalhador",
+          "nome": "Manuel Tobias",
+          "dataNascimento": "04/04/1995",
+          "email": "manoel@ig.br",
+          "senha": "Manuel1995*",
+          "primeiroEmprego": true,
+          "candidaturas": [],
+          "id": 4
+        }
+      ],
       "id": 2
     },
     {
-      "titulo": "Auxiliar administrativo",
-      "remuneracao": "R$ 2.500,00",
-      "descricao": "Auxiliar nas tarefas administrativas do departamento de Recursos Humanos e demais áreas da empresa.",
-      "candidatos": [],
+      "titulo": "aaa",
+      "remuneracao": "R$ 500,00",
+      "descricao": "eae",
+      "candidatos": [
+        {
+          "id": 1,
+          "tipo": "trabalhador",
+          "nome": "Recrutador",
+          "dataNascimento": "01/01/2001",
+          "email": "admin",
+          "senha": "admin",
+          "primeiroEmprego": true,
+          "candidaturas": [
+            {
+              "idVaga": 2,
+              "idCandidato": 1,
+              "reprovado": false
+            },
+            {
+              "idVaga": 1,
+              "idCandidato": 1,
+              "reprovado": false
+            },
+            {
+              "idVaga": 3,
+              "idCandidato": 1,
+              "reprovado": false
+            }
+          ]
+        }
+      ],
       "id": 3
     }
   ]
