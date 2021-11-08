@@ -2,7 +2,7 @@
   "usuarios": [
     {
       "id": 1,
-      "tipo": "recrutador",
+      "tipo": "trabalhador",
       "nome": "Recrutador",
       "dataNascimento": "01/01/2001",
       "email": "admin",

@@ -565,3 +565,9 @@ const criarElementoCandidato = (candidato, ulAMudar) => {
 
 
 // -----------------------tela-detalhe-vaga-trabalhador-nao-candidatado ------------------
+
+
+// Fazer função para remover os botoes da lista de candidados de cada vaga, dependendo do tipo de 
+// usuario (usuario.tipo), se ele for trabalhador dai vc removerar os botoes. as 3 ultimas paginas do
+// figma mostra oq tem que acontecer.
+
